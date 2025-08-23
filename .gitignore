@@ -34,3 +34,5 @@ build/
 
 ### CUSTOM ###
 application-local.yml
+/.codebuddy/
+/.mvn/
