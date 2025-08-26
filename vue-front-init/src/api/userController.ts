@@ -26,10 +26,10 @@ export async function deleteUser(body: API.DeleteRequest, options?: { [key: stri
   })
 }
 
-/** 此处后端没有提供注释 PUT /user/edit */
+/** 此处后端没有提供注释 POST /user/edit */
 export async function userEdit(body: API.UserEditRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponseBoolean>('/user/edit', {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

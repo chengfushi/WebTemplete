@@ -14,11 +14,11 @@ import com.chengfu.springbootinit.model.dto.user.*;
 import com.chengfu.springbootinit.model.entity.User;
 import com.chengfu.springbootinit.model.vo.LoginUserVO;
 import com.chengfu.springbootinit.model.vo.UserVO;
+import com.chengfu.springbootinit.service.UserService;
 import com.mybatisflex.core.paginate.Page;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
-import com.chengfu.springbootinit.service.UserService;
 
 import java.util.List;
 
@@ -113,7 +113,7 @@ public class UserController {
         return ResultUtils.success(user.getId());
     }
 
-    @PutMapping("/edit")
+    @PostMapping("/edit")
     public BaseResponse<Boolean> userEdit(@RequestBody UserEditRequest userEditRequest, HttpServletRequest request) {
         ThrowUtils.throwIf(userEditRequest == null, ErrorCode.PARAMS_ERROR);
         boolean result = userService.userEdit(userEditRequest, request);

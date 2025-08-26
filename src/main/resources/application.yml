@@ -36,7 +36,8 @@ server:
 
 # springdoc-openapi
 springdoc:
-  group-configs: - group: 'default'
+  group-configs:
+    - group: 'default'
       packages-to-scan: com.chengfu.springbootinit.controller
 # knife4j
 knife4j:
