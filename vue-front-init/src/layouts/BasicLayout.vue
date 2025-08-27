@@ -1,34 +1,42 @@
 <template>
-  <a-layout class="basic-layout">
-    <!-- 顶部导航栏 -->
-    <GlobalHeader />
+  <div id="basicLayout">
+    <a-layout style="min-height: 100vh; display: flex; flex-direction: column">
+      <a-layout-header class="header">
+        <GlobalHeader />
+      </a-layout-header>
 
-    <!-- 主要内容区域 -->
-    <a-layout-content class="main-content">
-      <router-view />
-    </a-layout-content>
+      <a-layout-content class="content" style="flex: 1">
+        <router-view />
+      </a-layout-content>
 
-    <!-- 底部版权信息 -->
-    <GlobalFooter />
-  </a-layout>
+      <a-layout-footer class="footer">
+        <GlobalFooter/>
+      </a-layout-footer>
+    </a-layout>
+  </div>
 </template>
-
 <script setup lang="ts">
 import GlobalHeader from '@/components/GlobalHeader.vue'
-import GlobalFooter from '@/components/GlobalFooter.vue'
+import GlobalFooter from '@/components/GlobalFooter.vue';
 </script>
 
 <style scoped>
-.basic-layout {
-  background: none;
-  min-height: 100vh; /* 确保布局至少占满整个视口高度 */
-  display: flex;
-  flex-direction: column;
+#basicLayout .footer {
+  background: #1e1e1e;
+  color: #d9d9d9;
+  padding: 40px 20px 15px;
 }
 
-.main-content {
-  flex: 1; /* 占据剩余空间 */
-  padding: 24px;
+/* 其余原有区域保持不动 */
+.content {
+  background: linear-gradient(to right, #fefefe, #fff);
+  padding: 20px;
+}
+
+.header {
+  padding-inline: 20px;
+  margin-bottom: 16px;
+  color: unset;
   background: white;
 }
 </style>

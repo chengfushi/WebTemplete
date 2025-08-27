@@ -1,26 +1,24 @@
 <template>
-  <a-layout-header class="header">
-    <a-row :wrap="false">
-      <!-- 左侧：Logo和标题 -->
-      <a-col flex="200px">
-        <RouterLink to="/">
-          <div class="header-left">
-            <img class="logo" src="@/assets/logo.png" alt="Logo" />
-            <h1 class="site-title">web应用模板</h1>
-          </div>
-        </RouterLink>
-      </a-col>
-      <!-- 中间：导航菜单 -->
-      <a-col flex="auto">
-        <a-menu
-          v-model:selectedKeys="current"
-          mode="horizontal"
-          :items="menuItems"
-          @click="doMenuClick"
-        />
-      </a-col>
-      <!-- 右侧：用户操作区域 -->
-      <div v-if="loginUserStore.loginUser.id">
+  <a-row :wrap="false">
+    <a-col flex="200px">
+      <RouterLink to="/">
+        <div class="title-bar">
+          <img class="logo" src="../assets/logo.png" alt="logo" />
+          <div class="title">Web开发模板</div>
+        </div>
+      </RouterLink>
+    </a-col>
+    <a-col flex="auto">
+      <a-menu
+        v-model:selectedKeys="current"
+        mode="horizontal"
+        :items="menuItems"
+        @click="doMenuClick"
+      />
+    </a-col>
+    <a-col flex="160px">
+      <div class="user-login-status">
+        <div v-if="loginUserStore.loginUser.id">
           <a-dropdown>
             <a-space>
               <a-avatar :src="loginUserStore.loginUser.userAvatar" />
@@ -44,18 +42,17 @@
         <div v-else>
           <a-button type="primary" href="/user/login">登录</a-button>
         </div>
-    </a-row>
-  </a-layout-header>
+      </div>
+    </a-col>
+  </a-row>
 </template>
-
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, h, ref } from 'vue'
 import { HomeOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons-vue'
-import { message } from 'ant-design-vue'
-import type { MenuProps } from 'ant-design-vue'
+import { MenuProps, message } from 'ant-design-vue'
 
 import { useRouter } from 'vue-router'
-import { useLoginUserStore } from '@/stores/loginUser'
+import { useLoginUserStore } from '@/stores/loginUser.ts'
 import { userLogout } from '@/api/userController.ts'
 
 const loginUserStore = useLoginUserStore()
@@ -114,8 +111,9 @@ const menuItems = computed<MenuProps['items']>(() => filterMenus(originItems))
 const doLogout = async () => {
   const res = await userLogout()
   if (res.data.code === 0) {
-    // 使用clearLoginUser代替setLoginUser，确保清除本地存储
-    loginUserStore.clearLoginUser()
+    loginUserStore.setLoginUser({
+      userName: '未登录',
+    })
     message.success('退出登录成功')
     await router.push('/user/login')
   } else {
@@ -126,31 +124,19 @@ const goUserCenter = async () => {
   await router.push('/user/center')
 }
 </script>
-
 <style scoped>
-.header {
-  background: #fff;
-  padding: 0 24px;
-}
-
-.header-left {
+.title-bar {
   display: flex;
   align-items: center;
-  gap: 12px;
+}
+
+.title {
+  color: black;
+  font-size: 18px;
+  margin-left: 16px;
 }
 
 .logo {
   height: 48px;
-  width: 48px;
-}
-
-.site-title {
-  margin: 0;
-  font-size: 18px;
-  color: #1890ff;
-}
-
-.ant-menu-horizontal {
-  border-bottom: none !important;
 }
 </style>

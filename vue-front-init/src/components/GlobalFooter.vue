@@ -48,13 +48,6 @@ import { GithubOutlined, BookOutlined } from '@ant-design/icons-vue'
 </script>
 
 <style scoped>
-.footer {
-  background: #1e1e1e;
-  color: #d9d9d9;
-  padding: 40px 20px 15px;
-  border-top: 1px solid #333;
-}
-
 .footer-container {
   display: flex;
   flex-wrap: wrap;
