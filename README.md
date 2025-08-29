@@ -2,6 +2,9 @@
 
 这是一个基于SpringBoot和Vue3的全栈Web应用开发模板，提供了完整的用户管理系统和前后端分离架构，帮助开发者快速搭建高质量的Web应用。
 
+
+> 本项目采用MIT开源协议，不得更改底部栏关于本人的版权信息，并且使用需要给本人邮箱发送自己唱哈吉米音乐的视频。
+
 ## 项目特点
 
 - **前后端分离架构**：后端基于SpringBoot，前端基于Vue3+TypeScript+Vite
@@ -196,19 +199,19 @@ sequenceDiagram
     participant UserController
     participant UserService
     participant 数据库
-    
+  
     客户端->>UserController: POST /api/user/register
     Note right of 客户端: {userAccount, userPassword, checkPassword}
-    
+  
     UserController->>UserController: 参数校验
     UserController->>UserService: userRegister(userAccount, userPassword, checkPassword)
-    
+  
     UserService->>UserService: 业务校验(账号长度、密码长度等)
     UserService->>UserService: 账号是否已存在
     UserService->>UserService: 密码加密
     UserService->>数据库: 保存用户信息
     数据库-->>UserService: 返回用户ID
-    
+  
     UserService-->>UserController: 返回用户ID
     UserController-->>客户端: 返回注册结果
 ```
@@ -222,19 +225,19 @@ sequenceDiagram
     participant UserService
     participant 数据库
     participant Session
-    
+  
     客户端->>UserController: POST /api/user/login
     Note right of 客户端: {userAccount, userPassword}
-    
+  
     UserController->>UserService: userLogin(userAccount, userPassword, request)
-    
+  
     UserService->>数据库: 查询用户信息
     数据库-->>UserService: 返回用户数据
-    
+  
     UserService->>UserService: 校验密码
     UserService->>Session: 记录用户登录态
     UserService->>UserService: 用户信息脱敏
-    
+  
     UserService-->>UserController: 返回脱敏后的用户信息
     UserController-->>客户端: 返回登录结果和用户信息
 ```
@@ -247,13 +250,13 @@ sequenceDiagram
     participant UserController
     participant UserService
     participant Session
-    
+  
     客户端->>UserController: GET /api/user/get/login
-    
+  
     UserController->>UserService: getLoginUser(request)
     UserService->>Session: 获取登录态
     Session-->>UserService: 返回Session中的用户信息
-    
+  
     UserService-->>UserController: 返回脱敏后的用户信息
     UserController-->>客户端: 返回当前登录用户信息
 ```
@@ -266,13 +269,13 @@ sequenceDiagram
     participant UserController
     participant UserService
     participant Session
-    
+  
     客户端->>UserController: POST /api/user/logout
-    
+  
     UserController->>UserService: userLogout(request)
     UserService->>Session: 清除登录态
     Session-->>UserService: 返回操作结果
-    
+  
     UserService-->>UserController: 返回注销结果
     UserController-->>客户端: 返回操作成功信息
 ```
@@ -286,14 +289,14 @@ sequenceDiagram
     participant 权限拦截器
     participant UserService
     participant 数据库
-    
+  
     客户端->>UserController: POST /api/user/list/page/vo
     Note right of 客户端: 需要管理员权限
-    
+  
     UserController->>权限拦截器: @AuthCheck(mustRole = "admin")
     权限拦截器->>UserService: 检查用户角色
     UserService-->>权限拦截器: 权限验证结果
-    
+  
     alt 有权限
         权限拦截器->>UserController: 允许访问
         UserController->>UserService: 查询用户列表
@@ -324,7 +327,7 @@ const handleLogin = async () => {
       userAccount: 'your_account',
       userPassword: 'your_password'
     });
-    
+  
     if (res.data.code === 0 && res.data.data) {
       // 更新登录用户信息
       await loginUserStore.fetchLoginUser();
@@ -362,9 +365,9 @@ const fetchCurrentUser = async () => {
 public class YourEntity {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    
+  
     // 其他字段
-    
+  
     // getter 和 setter
 }
 ```
@@ -397,7 +400,7 @@ public class YourEntityServiceImpl extends ServiceImpl<YourEntityMapper, YourEnt
 public class YourEntityController {
     @Resource
     private YourEntityService yourEntityService;
-    
+  
     // 实现API接口
 }
 ```
