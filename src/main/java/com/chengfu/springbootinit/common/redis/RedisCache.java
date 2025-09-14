@@ -1,5 +1,6 @@
 package com.chengfu.springbootinit.common.redis;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
 @Component
 public class RedisCache {
-    @Autowired
+    @Resource
     public RedisTemplate redisTemplate;
 
     /**
